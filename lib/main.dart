@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/listOfDoctors.dart';
+import 'package:flutter_project/list_of_doctors.dart';
 
 void main() => runApp(MyApp());
 
