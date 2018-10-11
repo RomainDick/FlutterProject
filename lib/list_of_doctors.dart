@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'calendar.dart';
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -51,13 +52,12 @@ class _MyHomePageState extends State<MyHomePage> {
           //     trailing: Text(record.id),
 
           //  trailing: Text(record.price.toString()),
-          /*onTap: () => Firestore.instance.runTransaction((transaction) async {
-            final freshSnapshot = await transaction.get(record.reference);
-            final fresh = Record.fromSnapshot(freshSnapshot);
-
-         await transaction
-               .update(record.reference, {'price': fresh.price + 1});
-          }),*/
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => CalendarScreen())
+            );
+          }
         ),
       ),
     );
