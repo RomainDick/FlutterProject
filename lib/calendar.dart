@@ -34,7 +34,7 @@ class Calendar extends StatefulWidget
 
 class CalendarState extends State<Calendar>
 {
-  DateTime _currentDate = DateTime(2018, 8, 1);
+  DateTime _currentDate = DateTime.now();
   List<DateTime> _markedDate = [];
 
   CalendarState(Record record) {
@@ -42,10 +42,7 @@ class CalendarState extends State<Calendar>
       this._markedDate.add(meeting['date']);
     }
   }
-
-  DateTime _currentDate = DateTime.now();
-  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
-
+  
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
