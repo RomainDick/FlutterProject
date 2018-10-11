@@ -1,109 +1,113 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_project/list_of_doctors.dart';
+import 'package:flutter_project/patient.dart';
 
-class RegisterForm extends StatelessWidget {
+class FormView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Form Validation';
-
-    return MaterialApp(
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(appTitle),
-        ),
-        body: MyCustomForm(),
+    return new MaterialApp(
+      title: 'Patient information',
+      theme: new ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: new FormRegister(title: 'Patient information'),
     );
   }
 }
 
-// Create a Form Widget
-class MyCustomForm extends StatefulWidget {
+class FormRegister extends StatefulWidget {
+  FormRegister({Key key, this.title, this.autovalidate}) : super(key: key);
+  final String title;
+  final bool autovalidate;
+  
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
-  }
+  _FormState createState() => new _FormState();
 }
 
-// Create a corresponding State class. This class will hold the data related to
-// the form.
-class MyCustomFormState extends State<MyCustomForm> {
-  // Create a global key that will uniquely identify the Form widget and allow
-  // us to validate the form
-  //
-  // Note: This is a GlobalKey<FormState>, not a GlobalKey<MyCustomFormState>!
-  final _formKey = GlobalKey<FormState>();
+class _FormState extends State<FormRegister> {
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final Patient patient =  new Patient();
 
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey we created above
-    return Form(
-      key: _formKey,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-
-          TextFormField(
-            autocorrect: false,
-            decoration: InputDecoration(
-              labelText: "First Name"
-            ),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter your first name';
-                }
-              }
-          ),
-          TextFormField(
-            autocorrect: false,
-            decoration: InputDecoration(
-                labelText: "Last Name"
-            ),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter your last name';
-                }
-              }
-          ),
-          TextFormField(
-            autocorrect: false,
-            decoration: InputDecoration(
-                labelText: "Phone Number"
-            ),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Please enter your phone number';
-                }
-              }
-          ),
-          TextFormField(
-              autocorrect: false,
-              decoration: InputDecoration(
-                  labelText: "Comments"
-              ),
-              validator: (value) {
-                if (value.isEmpty) {
-                  return 'Comments';
-                }
-              }
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
-            child: RaisedButton(
-              onPressed: () {
-                // Validate will return true if the form is valid, or false if
-                // the form is invalid.
-                if (_formKey.currentState.validate()) {
-                  // If the form is valid, we want to show a Snackbar
-                  Scaffold.of(context)
-                      .showSnackBar(SnackBar(content: Text('Processing Data')));
-                }
-              },
-              child: Text('Submit'),
-            ),
-          ),
-        ],
+    return new Scaffold(
+      appBar: new AppBar(
+        title: new Text("Patient information"),
       ),
+      body: new SafeArea(
+          top: false,
+          bottom: false,
+          child: new Form(
+              key: _formKey,
+              autovalidate: true,
+              child: new ListView(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  children: <Widget>[
+                    new TextFormField(
+                      decoration: const InputDecoration(
+                        icon: const Icon(Icons.person),
+                        hintText: 'Enter your first and last name',
+                        labelText: 'Name',
+                      ),
+                        validator: (val) => val.isEmpty ? 'Name is required' : null,
+                        onSaved: (val) => patient.name = val,
+                    ),
+                    
+                    new TextFormField(
+                      decoration: const InputDecoration(
+                        icon: const Icon(Icons.phone),
+                        hintText: 'Enter a phone number',
+                        labelText: 'Phone',
+                      ),
+                      validator: (val) => val.isEmpty ? 'Phone number is required' : null,
+                      keyboardType: TextInputType.phone,
+                      inputFormatters: [
+                        WhitelistingTextInputFormatter.digitsOnly,
+                      ],
+                        onSaved: (val) => patient.phone = val,
+                    ),
+                    new TextFormField(
+                      decoration: const InputDecoration(
+                        icon: const Icon(Icons.comment),
+                        hintText: 'Enter a reason for the meeting',
+                        labelText: 'Content',
+                      ),
+                      validator: (val) => val.isEmpty ? 'You need to explain your problem' : null,
+                      keyboardType: TextInputType.emailAddress,
+                      onSaved: (val) => patient.content = val,
+                    ),
+                    new Container(
+                        padding: const EdgeInsets.only(left: 40.0, top: 20.0),
+                        child: new RaisedButton(
+                          child: const Text('Submit'),
+                          onPressed: _submitForm,
+                        )),
+                  ],
+                ),
+              )),
     );
+  }
+
+  void _submitForm() {
+
+    final FormState form = _formKey.currentState;
+
+    if (!form.validate()) {
+      print('Form is not valid!  Please review and correct.');
+    } else {
+      form.save(); //This invokes each onSaved event
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MyHomePage(
+        ))
+      );
+    }
+
+    print('${patient.name}');
+    print('${patient.phone}');
+    print('${patient.content}');
+
+    // Need to stock information into Firebase
   }
 }

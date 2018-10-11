@@ -14,7 +14,7 @@ class CalendarScreen extends StatelessWidget
   Widget build(BuildContext context) {
     return Scaffold(
       body: new Calendar(
-        title: 'Rendez-vous avec ' + this.record.name,
+        title: 'Meeting with ' + this.record.name,
         record: this.record,
       ),
     );
@@ -39,8 +39,10 @@ class CalendarState extends State<Calendar>
   List<DateTime> _markedDate = [];
 
   CalendarState(Record record) {
-    for (var meeting in record.meetings) {
-      this._markedDate.add(meeting['date']);
+    if (record.meetings != null) {
+      for (var meeting in record.meetings) {
+        this._markedDate.add(meeting['date']);
+      }
     }
   }
 
@@ -58,7 +60,7 @@ class CalendarState extends State<Calendar>
                 date.isAfter(DateTime.now())) {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => new RegisterForm())
+                  MaterialPageRoute(builder: (context) => new FormRegister())
               );
             }
          //   this.setState(() => _currentDate = date);
