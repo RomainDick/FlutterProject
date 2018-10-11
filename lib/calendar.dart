@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'list_of_doctors.dart';
+import 'form.dart';
 
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 
@@ -42,7 +43,7 @@ class CalendarState extends State<Calendar>
       this._markedDate.add(meeting['date']);
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -57,11 +58,7 @@ class CalendarState extends State<Calendar>
                 date.isAfter(DateTime.now())) {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>
-                      CalendarScreen(
-                        record: null,
-                      )
-                  )
+                  MaterialPageRoute(builder: (context) => new RegisterForm())
               );
             }
          //   this.setState(() => _currentDate = date);
