@@ -55,7 +55,9 @@ class _MyHomePageState extends State<MyHomePage> {
           onTap: () {
             Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CalendarScreen())
+                MaterialPageRoute(builder: (context) => CalendarScreen(
+                  record: record,
+                ))
             );
           }
         ),

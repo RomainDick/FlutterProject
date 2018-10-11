@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'list_of_doctors.dart';
 
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 
 class CalendarScreen extends StatelessWidget
 {
+  CalendarScreen({Key key, this.record}) : super(key: key);
+
+  final Record record;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: new Calendar(
-        title: 'Rendez-vous',
+        title: 'Rendez-vous avec ' + this.record.name,
       ),
     );
   }
@@ -17,9 +22,10 @@ class CalendarScreen extends StatelessWidget
 
 class Calendar extends StatefulWidget
 {
-  Calendar({Key key, this.title}) : super(key: key);
+  Calendar({Key key, this.title, this.idDoctor}) : super(key: key);
 
   final String title;
+  final String idDoctor;
 
   @override
   CalendarState createState() => new CalendarState();
