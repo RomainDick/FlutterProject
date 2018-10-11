@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "181088446454",
-    "firebase_url": "https://flutterestiam.firebaseio.com",
-    "project_id": "flutterestiam",
-    "storage_bucket": "flutterestiam.appspot.com"
+    "project_number": "599241856068",
+    "firebase_url": "https://findadoc-55c40.firebaseio.com",
+    "project_id": "findadoc-55c40",
+    "storage_bucket": "findadoc-55c40.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:181088446454:android:722624f8a2795d49",
+        "mobilesdk_app_id": "1:599241856068:android:722624f8a2795d49",
         "android_client_info": {
           "package_name": "com.example.flutterproject"
         }
       },
       "oauth_client": [
         {
-          "client_id": "181088446454-9tg4q3t8essnc6mk9kp2aqsoelplrfau.apps.googleusercontent.com",
+          "client_id": "599241856068-2t5g12o8t74mlvfo3fqp9q0uu4c73f65.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCBqSBJ2KHRUUZYhKx1V7XycGdAWBj1zqQ"
+          "current_key": "AIzaSyBpEWc-EslSRBBBkLe__Lma7IHyeDCtMXo"
         }
       ],
       "services": {
