@@ -33,7 +33,7 @@ class Calendar extends StatefulWidget
 
 class CalendarState extends State<Calendar>
 {
-  DateTime _currentDate = DateTime(2018, 8, 1);
+  DateTime _currentDate = DateTime.now();
   List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
 
   @override
@@ -46,11 +46,27 @@ class CalendarState extends State<Calendar>
         margin: EdgeInsets.symmetric(horizontal: 16.0),
         child: CalendarCarousel(
           onDayPressed: (DateTime date) {
-            this.setState(() => _currentDate = date);
+            if (!_markedDate.contains(date) &&
+                date.isAfter(DateTime.now())) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>
+                      CalendarScreen(
+                        record: null,
+                      )
+                  )
+              );
+            }
+         //   this.setState(() => _currentDate = date);
           },
           weekendTextStyle: TextStyle(
             color: Colors.red,
           ),
+         markedDateWidget: new Positioned(
+             child: Container(
+               color: Colors.red,
+             )
+         ),
           thisMonthDayBorderColor: Colors.grey,
           markedDates: _markedDate,
           height: 420.0,
@@ -58,6 +74,7 @@ class CalendarState extends State<Calendar>
           daysHaveCircularBorder: false,
         ),
       ),
+
     );
   }
 }
