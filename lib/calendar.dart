@@ -14,6 +14,7 @@ class CalendarScreen extends StatelessWidget
     return Scaffold(
       body: new Calendar(
         title: 'Rendez-vous avec ' + this.record.name,
+        record: this.record,
       ),
     );
   }
@@ -22,19 +23,25 @@ class CalendarScreen extends StatelessWidget
 
 class Calendar extends StatefulWidget
 {
-  Calendar({Key key, this.title, this.idDoctor}) : super(key: key);
+  Calendar({Key key, this.title, this.record}) : super(key: key);
 
   final String title;
-  final String idDoctor;
+  final Record record;
 
   @override
-  CalendarState createState() => new CalendarState();
+  CalendarState createState() => new CalendarState(record);
 }
 
 class CalendarState extends State<Calendar>
 {
   DateTime _currentDate = DateTime(2018, 8, 1);
-  List<DateTime> _markedDate = [DateTime(2018, 9, 20), DateTime(2018, 10, 11)];
+  List<DateTime> _markedDate = [];
+
+  CalendarState(Record record) {
+    for (var meeting in record.meetings) {
+      this._markedDate.add(meeting['date']);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
