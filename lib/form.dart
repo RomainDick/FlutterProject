@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
+import 'list_of_doctors.dart';
 
-class RegisterForm extends StatelessWidget {
+class RegisterFormScreen extends StatelessWidget {
+
+  RegisterFormScreen({Key key, this.record}) : super(key: key);
+
+  final Record record;
+
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Form Validation';
-
-    return MaterialApp(
-      title: appTitle,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(appTitle),
-        ),
-        body: MyCustomForm(),
+    return Scaffold(
+      appBar: AppBar(title: Text('Demander un rendez-vous')),
+      body: new RegisterForm(
+        record: this.record,
       ),
     );
   }
 }
 
 // Create a Form Widget
-class MyCustomForm extends StatefulWidget {
+class RegisterForm extends StatefulWidget {
+
+  RegisterForm({Key key, this.title, this.record}) : super(key: key);
+
+  final String title;
+  final Record record;
+
   @override
-  MyCustomFormState createState() {
-    return MyCustomFormState();
+  RegisterFormState createState() {
+    return RegisterFormState();
   }
 }
 
 // Create a corresponding State class. This class will hold the data related to
 // the form.
-class MyCustomFormState extends State<MyCustomForm> {
+class RegisterFormState extends State<RegisterForm> {
   // Create a global key that will uniquely identify the Form widget and allow
   // us to validate the form
   //

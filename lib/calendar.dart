@@ -58,7 +58,9 @@ class CalendarState extends State<Calendar>
                 date.isAfter(DateTime.now())) {
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => new RegisterForm())
+                  MaterialPageRoute(builder: (context) => new RegisterFormScreen(
+                    record: widget.record,
+                  ))
               );
             }
          //   this.setState(() => _currentDate = date);
